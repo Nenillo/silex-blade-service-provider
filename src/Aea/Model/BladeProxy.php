@@ -19,8 +19,13 @@ class BladeProxy
         $this->blade = $blade;
     }
 
-    public function view($view)
+    public function view($view, $values = [])
     {
-        return $this->blade->view()->make($view)->render();
+        return $this->blade->view()->make($view, $values)->render();
+    }
+
+    public function __call($name, $args)
+    {
+        return call_user_func_array([$this->blade->view(), $name], $args);
     }
 }

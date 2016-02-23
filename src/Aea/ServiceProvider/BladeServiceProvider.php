@@ -20,6 +20,7 @@ class BladeServiceProvider implements ServiceProviderInterface
         $app['blade'] = $app->share(function () use ($app) {
             return new BladeProxy(new Blade($app['blade.view_paths'], $app['blade.cache_path']));
         });
+        $app['blade']->share('app', $app);
     }
 
     public function boot(Application $app)
